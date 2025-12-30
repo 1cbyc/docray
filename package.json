@@ -16,6 +16,7 @@
     "@trpc/next": "^11.8.1",
     "@trpc/react-query": "^11.8.1",
     "@trpc/server": "^11.8.1",
+    "formidable": "^3.5.4",
     "next": "16.1.1",
     "next-auth": "^4.24.13",
     "node-signpdf": "^3.0.0",
