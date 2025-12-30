@@ -1,5 +1,5 @@
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
+
+import { prisma } from '../../server/context';
 
 export async function exportAuditLog() {
   return prisma.auditLog.findMany();
