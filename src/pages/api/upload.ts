@@ -11,10 +11,12 @@ export const config = {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') return res.status(405).end();
-  const form = new formidable.IncomingForm();
-  form.uploadDir = path.join(process.cwd(), 'uploads');
-  form.keepExtensions = true;
-  if (!fs.existsSync(form.uploadDir)) fs.mkdirSync(form.uploadDir);
+  const uploadDir = path.join(process.cwd(), 'uploads');
+  if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
+  const form = formidable({
+    uploadDir,
+    keepExtensions: true,
+  });
   form.parse(req, (err, fields, files) => {
     if (err) return res.status(500).json({ error: 'Upload failed' });
     res.status(200).json({ fields, files });
