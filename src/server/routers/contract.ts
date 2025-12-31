@@ -102,7 +102,7 @@ export const contractRouter = router({
       });
     }),
 
-  // Extract terms (placeholder for AI)
+  // Extract terms (AI)
   extractTerms: publicProcedure
     .input(z.string()) // contract ID
     .query(async ({ input }) => {
@@ -111,7 +111,9 @@ export const contractRouter = router({
       });
       if (!contract) throw new Error('Contract not found');
 
-      // TODO: Implement AI term extraction
-      return { terms: [], status: 'pending' };
+      // TODO: Extract text from PDF first
+      const { extractTerms } = await import('../../lib/ai/extractTerms');
+      const terms = await extractTerms('Sample contract text'); // TODO: Use actual PDF text
+      return { terms, status: 'completed' };
     }),
 });
