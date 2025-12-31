@@ -2,7 +2,12 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { trpc } from '../../utils/trpc';
-import PDFViewer from '../../components/PDFViewer';
+import dynamic from 'next/dynamic';
+
+const PDFViewer = dynamic(() => import('../../components/PDFViewer'), {
+  ssr: false,
+  loading: () => <div className="flex items-center justify-center h-64">Loading PDF...</div>,
+});
 
 export default function ContractDetailsPage() {
   const router = useRouter();

@@ -2,8 +2,17 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { trpc } from '../../utils/trpc';
 
+type Contract = {
+  id: string;
+  title: string;
+  status: string;
+  createdAt: string;
+  createdBy: { name?: string | null; email: string };
+  parties: { name: string; role: string }[];
+};
+
 export default function ContractsPage() {
-  const { data: contracts, isLoading } = trpc.contract.getAll.useQuery();
+  const { data: contracts, isLoading } = trpc.contract.getAll.useQuery() as { data: Contract[] | undefined; isLoading: boolean };
 
   if (isLoading) return <div>Loading...</div>;
 

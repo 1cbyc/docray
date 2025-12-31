@@ -5,13 +5,19 @@ import { prisma } from '../context';
 export const auditRouter = router({
   // Get all audit logs
   getAll: publicProcedure.query(async () => {
-    return await prisma.auditLog.findMany({
+    const logs = await prisma.auditLog.findMany({
       include: {
-        contract: true,
-        user: true,
+        contract: {
+          select: { id: true, title: true },
+        },
+        user: {
+          select: { id: true, name: true, email: true },
+        },
       },
       orderBy: { timestamp: 'desc' },
+      take: 100, // Limit results
     });
+    return logs;
   }),
 
   // Get audit logs for a contract

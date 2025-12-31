@@ -8,12 +8,29 @@ export const contractRouter = router({
     return await prisma.contract.findMany({
       include: {
         parties: true,
-        signatures: true,
-        approvals: true,
-        createdBy: true,
-        template: true,
+        signatures: {
+          include: {
+            signer: {
+              select: { id: true, name: true, email: true },
+            },
+          },
+        },
+        approvals: {
+          include: {
+            approver: {
+              select: { id: true, name: true, email: true },
+            },
+          },
+        },
+        createdBy: {
+          select: { id: true, name: true, email: true },
+        },
+        template: {
+          select: { id: true, name: true },
+        },
       },
       orderBy: { createdAt: 'desc' },
+      take: 50, // Limit results
     });
   }),
 
@@ -25,8 +42,20 @@ export const contractRouter = router({
         where: { id: input },
         include: {
           parties: true,
-          signatures: true,
-          approvals: true,
+          signatures: {
+            include: {
+              signer: {
+                select: { id: true, name: true, email: true },
+              },
+            },
+          },
+          approvals: {
+            include: {
+              approver: {
+                select: { id: true, name: true, email: true },
+              },
+            },
+          },
           createdBy: true,
           template: true,
           files: true,

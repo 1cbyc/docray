@@ -1,9 +1,13 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { trpc } from '../utils/trpc';
+// import { trpc } from '../utils/trpc';
 
 export default function AuditLogPage() {
-  const { data: logs, isLoading } = trpc.audit.getAll.useQuery();
+  // const { data: logs, isLoading } = trpc.audit.getAll.useQuery();
+  const logs: any[] = []; // Temporary placeholder
+  const isLoading = false;
+
+  if (isLoading) return <div className="min-h-screen p-8">Loading...</div>;
 
   if (isLoading) return <div className="min-h-screen p-8">Loading...</div>;
 
