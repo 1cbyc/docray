@@ -2,6 +2,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { trpc } from '../../utils/trpc';
+import PDFViewer from '../../components/PDFViewer';
 
 export default function ContractDetailsPage() {
   const router = useRouter();
@@ -48,6 +49,11 @@ export default function ContractDetailsPage() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <h2 className="text-xl font-semibold mb-4">PDF Preview</h2>
+              <PDFViewer url={contract.fileUrl} />
+            </div>
+
             <div>
               <h2 className="text-xl font-semibold mb-4">Parties</h2>
               <div className="space-y-2">
