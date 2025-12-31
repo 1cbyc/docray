@@ -49,6 +49,7 @@ export default function PDFViewer({ url }: PDFViewerProps) {
         const renderContext = {
           canvasContext: context,
           viewport: viewport,
+          canvas: canvas,
         };
 
         await page.render(renderContext).promise;
